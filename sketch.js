@@ -16,7 +16,7 @@ function setup() {
   noCanvas();
   video = createCapture(VIDEO).parent('videoContainer');
   // Create a KNN Image Classifier
-  knn = new ml5.KNNImageClassifier(5, 1, modelLoaded, video.elt);
+  knn = new ml5.KNNImageClassifier(3, 1, modelLoaded, video.elt);
   createButtons();
 }
 
@@ -49,15 +49,6 @@ function createButtons() {
     train(3);
   });
   
-  buttonD = select('#buttonD');
-  buttonD.mousePressed(function() {
-    train(4);
-  });
-  
-  buttonD = select('#buttonE');
-  buttonD.mousePressed(function() {
-    train(5);
-  });
   
   // Reset buttons
   resetBtnA = select('#resetA');
@@ -75,18 +66,6 @@ function createButtons() {
   resetBtnC = select('#resetC');
   resetBtnC.mousePressed(function() {
     clearClass(3);
-    updateExampleCounts();
-  });
-  
-  resetBtnD = select('#resetD');
-  resetBtnD.mousePressed(function() {
-    clearClass(4);
-    updateExampleCounts();
-  });
-  
-  resetBtnE = select('#resetE');
-  resetBtnE.mousePressed(function() {
-    clearClass(5);
     updateExampleCounts();
   });
   
@@ -109,10 +88,6 @@ function train(category) {
     msg = 'B';
   } else if (category == 3) {
     msg = 'C';
-  }else if (category == 4) {
-	msg = 'D'
-  }else if (category == 5) {
-	msg = 'E' 
   }
   select('#training').html(msg);
   knn.addImageFromVideo(category);
@@ -134,10 +109,6 @@ function gotResults(results) {
     msg = 'B';
   } else if (results.classIndex == 3) {
     msg = 'C';
-  }else if (results.classIndex == 4){
-	msg = 'D';  
-  }else if (results.classIndex == 5) {
-	msg = 'E'  
   }
   select('#result').html(msg);
 
@@ -145,8 +116,6 @@ function gotResults(results) {
   select('#confidenceA').html(results.confidences[1]);
   select('#confidenceB').html(results.confidences[2]);
   select('#confidenceC').html(results.confidences[3]);
-  select('#confidenceD').html(results.confidences[4]);
-  select('#confidenceE').html(results.confidences[5]);
 
   setTimeout(function(){
     predict();
@@ -164,6 +133,4 @@ function updateExampleCounts() {
   select('#exampleA').html(counts[1]);
   select('#exampleB').html(counts[2]);
   select('#exampleC').html(counts[3]);
-  select('#exampleD').html(counts[4]);
-  select('#exampleE').html(counts[5]);
 }

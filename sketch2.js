@@ -97,5 +97,6 @@ function win(){
 	cdn.style.display = "";
 	countdown_num = 5;
 	document.getElementById("myImg").src = "";
+	btn.style.display = "";
 }
 
